@@ -20,6 +20,7 @@ public class UserRepository {
     /*
     * Méthodes (CRUD)
     * */
+
     //Méthode pour ajouter un User
     public static User save(User addUser) {
         //Créer un objet user
