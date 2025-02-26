@@ -11,10 +11,9 @@ public class Main {
         );
 
         User getUser = UserRepository.findByEmail("mathieu1@gmail.com");
-        if(getUser != null){
+        if (getUser != null) {
             System.out.println(getUser);
-        }
-        else {
+        } else {
             System.out.println("le compte n'existe pas");
         }
     }

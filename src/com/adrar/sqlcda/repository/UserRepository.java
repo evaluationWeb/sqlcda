@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRepository {
     /*
@@ -98,5 +100,30 @@ public class UserRepository {
             throw new RuntimeException(e);
         }
         return findUser;
+    }
+
+    //Méthode pour récupérer tous les comptes User dans une List
+    public static List<User> findAll(){
+        List<User> findUsers = new ArrayList<>();
+        try {
+            String sql = "SELECT id, firstname, lastname, email FROM users";
+            //Préparation de la requête
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            //Exécution de la requête
+            ResultSet resultSet = preparedStatement.executeQuery();
+            //Ajout dans la liste des User
+            while(resultSet.next()){
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setFirstname(resultSet.getString("firstname"));
+                user.setLastname(resultSet.getString("lastname"));
+                user.setEmail(resultSet.getString("email"));
+                findUsers.add(user);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return findUsers;
     }
 }
