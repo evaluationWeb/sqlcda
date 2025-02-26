@@ -2,7 +2,6 @@ package com.adrar.sqlcda.repository;
 
 import com.adrar.sqlcda.db.Bdd;
 import com.adrar.sqlcda.model.Roles;
-import com.adrar.sqlcda.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -63,7 +62,7 @@ public class RolesRepository {
     }
 
     //Méthode pour récupérer un Roles par son rolesName
-    public static Roles findByEmail(String rolesName) {
+    public static Roles findByName(String rolesName) {
         Roles findRoles = null;
         try {
             String sql = "SELECT id, roles_name FROM roles WHERE roles_name = ?";
@@ -105,7 +104,6 @@ public class RolesRepository {
         return findRoles;
     }
 
-    //Méthode pour modifier le nom du Roles
     //Méthode qui met à jour un Roles et retourne Roles modifié
     public static Roles update(Roles roles, String rolesName){
         Roles updateRoles = null;
