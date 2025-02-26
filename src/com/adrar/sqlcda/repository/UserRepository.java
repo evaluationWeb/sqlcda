@@ -126,4 +126,27 @@ public class UserRepository {
         }
         return findUsers;
     }
+
+    //Méthode qui met à jour un User et retourne User modifié
+    public static User update(User user, String email){
+        User updateUser = null;
+        try {
+            String sql = "UPDATE users SET firstname = ?, lastname = ?, email = ? WHERE email = ?";
+            //préparation de la requête
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            //Bind des paramètres
+            preparedStatement.setString(1, user.getFirstname());
+            preparedStatement.setString(2, user.getLastname());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, email);
+            //Exécution de la requête
+            int  nbrRows = preparedStatement.executeUpdate();
+            if(nbrRows > 0){
+                updateUser = user;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updateUser;
+    }
 }
