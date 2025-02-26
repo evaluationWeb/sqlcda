@@ -1,12 +1,9 @@
-import com.adrar.sqlcda.db.Bdd;
 import com.adrar.sqlcda.model.User;
+import com.adrar.sqlcda.repository.UserRepository;
 
 public class Main {
     public static void main(String[] args) {
-        //Bdd.getConnection();
-        User user = new User();
-        User user2 = new User("Mathieu", "Mithridate", "test@test.com" ,"1234");
-        System.out.println(user);
-        System.out.println(user2);
+        User newUser = new User("Mathieu", "Mithridate", "mathieu@gmail.com", "123456");
+        UserRepository.save(newUser);
     }
 }
