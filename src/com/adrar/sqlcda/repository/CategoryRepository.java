@@ -2,7 +2,6 @@ package com.adrar.sqlcda.repository;
 
 import com.adrar.sqlcda.db.Bdd;
 import com.adrar.sqlcda.model.Category;
-import com.adrar.sqlcda.model.Roles;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
