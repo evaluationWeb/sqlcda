@@ -5,6 +5,7 @@ import com.adrar.sqlcda.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class UserRepository {
     /*
@@ -16,7 +17,7 @@ public class UserRepository {
     /*
     * Méthodes (CRUD)
     * */
-
+    //Méthode pour ajouter
     public static User save(User addUser) {
         //Créer un objet user
         User newUser = null;
@@ -49,5 +50,27 @@ public class UserRepository {
             e.printStackTrace();
         }
         return newUser;
+    }
+
+    public static boolean isExist(String email) {
+        boolean getUser = false;
+        try {
+            String sql = "SELECT id FROM users WHERE email = ?";
+            //préparer la requête
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            //Bind le paramètre
+            preparedStatement.setString(1, email);
+            //récupérer le resultat de la requête
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            //Vérification du résultat
+            while(resultSet.next()){
+                getUser = true;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getUser;
     }
 }
