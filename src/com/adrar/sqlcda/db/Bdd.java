@@ -10,7 +10,7 @@ public class Bdd {
     static final String USERNAME = "root";
     static final String PASSWORD = "";
     //Connexion à la BDD
-    private static Connection connexion;
+    private static final Connection connexion;
     static {
         try {
             connexion = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
