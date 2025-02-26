@@ -1,6 +1,7 @@
 package com.adrar.sqlcda.repository;
 
 import com.adrar.sqlcda.db.Bdd;
+import com.adrar.sqlcda.model.Roles;
 import com.adrar.sqlcda.model.User;
 
 import java.sql.Connection;
@@ -149,5 +150,33 @@ public class UserRepository {
             e.printStackTrace();
         }
         return updateUser;
+    }
+
+    //Méthode qui ajoute un User avec son Roles en BDD
+    public static User saveWithRoles(User user) {
+        User saveUser = null;
+        try {
+            String sql = "INSERT INTO users(firstname, lastname, email, " +
+                    "password, roles_id) VALUES(?,?,?,?," +
+                    "(SELECT id FROM roles WHERE roles_name = ?))";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, user.getFirstname());
+            preparedStatement.setString(2, user.getLastname());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(5, user.getRoles().getRolesName());
+            int nbrRows = preparedStatement.executeUpdate();
+            if(nbrRows > 0){
+                saveUser = new User();
+                saveUser.setFirstname(user.getFirstname());
+                saveUser.setLastname(user.getLastname());
+                saveUser.setEmail(user.getEmail());
+                saveUser.setPassword(user.getPassword());
+                saveUser.setRoles(user.getRoles());
+            }
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        return saveUser;
     }
 }

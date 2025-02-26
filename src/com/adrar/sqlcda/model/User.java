@@ -9,6 +9,7 @@ public class User {
     private String lastname;
     private String email;
     private String password;
+    private Roles roles;
 
     /*
     * Constructeurs
@@ -64,6 +65,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
     }
 
     /*
