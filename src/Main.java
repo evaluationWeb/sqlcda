@@ -10,12 +10,13 @@ public class Main {
                 "mathieu1@gmail.com",
                 "123456"
         );
-        boolean exist = UserRepository.isExist("mathieu1@gmail.com");
-        if(exist) {
-            System.out.println("Le compte existe");
+
+        User getUser = UserRepository.findByEmail("mathieu1@gmail.com");
+        if(getUser != null){
+            System.out.println(getUser);
         }
         else {
-            System.out.println("Le compte n'existe pas");
+            System.out.println("le compte n'existe pas");
         }
     }
 }

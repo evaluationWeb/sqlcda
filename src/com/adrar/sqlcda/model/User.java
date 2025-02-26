@@ -69,11 +69,14 @@ public class User {
     /*
     * Méthodes
     * */
+
     @Override
     public String toString() {
         return "User{" +
-                "firstname='" + this.firstname + '\'' +
-                ", lastname='" + this.lastname + '\'' +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
