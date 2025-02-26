@@ -1,4 +1,3 @@
-import com.adrar.sqlcda.db.Bdd;
 import com.adrar.sqlcda.model.User;
 import com.adrar.sqlcda.repository.UserRepository;
 

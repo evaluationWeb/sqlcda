@@ -7,8 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 public class UserRepository {
     /*
@@ -20,7 +18,7 @@ public class UserRepository {
     /*
     * Méthodes (CRUD)
     * */
-    //Méthode pour ajouter
+    //Méthode pour ajouter un User
     public static User save(User addUser) {
         //Créer un objet user
         User newUser = null;
@@ -55,6 +53,7 @@ public class UserRepository {
         return newUser;
     }
 
+    //Méthode pour vérifier si un User existe
     public static boolean isExist(String email) {
         boolean getUser = false;
         try {
@@ -77,6 +76,7 @@ public class UserRepository {
         return getUser;
     }
 
+    //Méthode pour récupérer un compte par son Email
     public static User findByEmail(String email) {
         User findUser = null;
         try {
@@ -99,5 +99,4 @@ public class UserRepository {
         }
         return findUser;
     }
-
 }
