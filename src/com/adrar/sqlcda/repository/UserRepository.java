@@ -149,4 +149,28 @@ public class UserRepository {
         }
         return updateUser;
     }
+
+    //Méthode qui ajouter un User avec son role
+    public static User saveWithRoles(User addUser) {
+        User newUser = null;
+        try {
+            String sql = "INSERT INTO users(firstname, lastname, email, password, roles_id)" +
+                    "VALUE(?,?,?,?,(SELECT id FROM roles WHERE roles_name = ?))";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            //Bind des 5 paramètres
+            preparedStatement.setString(1, addUser.getFirstname());
+            preparedStatement.setString(2, addUser.getLastname());
+            preparedStatement.setString(3, addUser.getEmail());
+            preparedStatement.setString(4, addUser.getPassword());
+            preparedStatement.setString(5, addUser.getRoles().getRolesName());
+            int nbrRows = preparedStatement.executeUpdate();
+            if(nbrRows > 0){
+                newUser = addUser;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return newUser;
+    }
 }
