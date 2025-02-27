@@ -9,6 +9,7 @@ public class User {
     private String lastname;
     private String email;
     private String password;
+    private Roles roles;
 
     /*
     * Constructeurs
@@ -66,6 +67,14 @@ public class User {
         this.password = password;
     }
 
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
+
     /*
     * Méthodes
     * */
@@ -77,6 +86,7 @@ public class User {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
+                ", role ='" + roles.getRolesName() + '\'' +
                 '}';
     }
 }
