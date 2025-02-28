@@ -17,7 +17,7 @@ public class TaskRepository {
         Task savedTask = null;
         try {
             String sql = "INSERT INTO task(title, content, end_date, users_id)" +
-                    "VALUES (?, ?, ?, (SELECT id FROM uses WHERE firstname = ? AND lastname = ?))";
+                    "VALUES (?, ?, ?, (SELECT id FROM users WHERE firstname = ? AND lastname = ?))";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, task.getTitle());
             preparedStatement.setString(2, task.getContent());
@@ -57,9 +57,10 @@ public class TaskRepository {
     public static Task saveCategory(Task task) {
         Task savedTask = null;
         try {
-            String sql = "INSERT INTO category(category_id, task_id) VALUES";
+            String sql = "INSERT INTO task_category(category_id, task_id) VALUES";
             for (Category category : task.getCategories()) {
                 sql += " (" + category.getId() + ", " + task.getId() + ")";
+                sql += category.getId() != task.getCategories().getLast().getId()?" ,":"";
             }
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             if (preparedStatement.executeUpdate(sql) > 0) {
@@ -71,4 +72,51 @@ public class TaskRepository {
         }
         return savedTask;
     }
+
+    //Méthode pour vérifier si une tache existe
+    public static boolean isExist(Task task) {
+       boolean  exist = false;
+       try {
+           String sql = "SELECT t.id FROM task as t WHERE t.title = ? AND" +
+                   " date(t.create_at) = ?";
+           PreparedStatement preparedStatement = connection.prepareStatement(sql);
+           preparedStatement.setString(1, task.getTitle());
+           preparedStatement.setString(2, task.getCreateAt().toString());
+           ResultSet resultSet = preparedStatement.executeQuery();
+           if(resultSet.next()) {
+               exist = true;
+           }
+       }
+       catch (Exception e) {
+           e.printStackTrace();
+       }
+       return exist;
+    }
+
+    //Méthode pour récupérer une tache
+    public static Task findBy(Task task) {
+        Task getTask = null;
+        try {
+            String sql = "SELECT t.id, t.title, t.content, t.create_at u.id AS uId, u.firstname, " +
+                    "u.lastname FROM task as t " +
+                    "INNER JOIN users AS u ON t.users_id = u.id" +
+                    "WHERE t.title = ?" +
+                    "AND date(t.create_at) = ? AND users_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, task.getTitle());
+            preparedStatement.setString(2, task.getCreateAt().toString());
+            preparedStatement.setInt(3, task.getUser().getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+                getTask = task;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getTask;
+    }
+
+    //Méthode pour récupérer la liste des taches
+
 }
