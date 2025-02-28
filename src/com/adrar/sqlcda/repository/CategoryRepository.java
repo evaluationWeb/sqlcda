@@ -93,6 +93,7 @@ public class CategoryRepository {
             //Ajout dans la liste des User
             while(resultSet.next()){
                 Category category = new Category(resultSet.getString("category_name"));
+                category.setId(resultSet.getInt("id"));
                 findCategories.add(category);
             }
         }
