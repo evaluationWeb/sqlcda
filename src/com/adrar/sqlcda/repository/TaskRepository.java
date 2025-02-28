@@ -57,7 +57,7 @@ public class TaskRepository {
     public static Task saveCategory(Task task) {
         Task savedTask = null;
         try {
-            String sql = "INSERT INTO category(category_id, task_id) VALUES";
+            String sql = "INSERT INTO task_category(category_id, task_id) VALUES";
             for (Category category : task.getCategories()) {
                 sql += " (" + category.getId() + ", " + task.getId() + ")";
             }
